@@ -1,0 +1,55 @@
+<div class="row me-3 mt-3">
+
+        <div class="col-12 col-md-6 col-lg-4 vh-100">
+
+            <!--card Produksi Harian-->
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Laporan AP2B</h5>
+                    <p class="card-text">Dikirimkan ke AP2B via whatsapp setiap pukul 00:00</p>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">GT21</span>
+                        <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" value=<%= prod21%>>
+                        <span class="input-group-text">MWh</span>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">GT22</span>
+                        <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" value=<%= prod22%>>
+                        <span class="input-group-text">MWh</span>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">ST28</span>
+                        <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" value=<%= prod28%>>
+                        <span class="input-group-text">MWh</span>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Total Produksi</span>
+                        <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" value="<%= totProd%>">
+                        <span class="input-group-text">MWh</span>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Konsumsi Gas</span>
+                        <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" value=<%= consGasB2%>>
+                        <span class="input-group-text">mmbtu</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="d-grid gap-2 mt-3 mb-5 d-md-flex justify-content-md-end">
+                <a href="/dispatcher/load" class="btn btn-secondary underline underline-opacity-0">Ambil Data</a>
+                <button class="btn btn-primary" type="button" id="btn-copy-laporan">Copy Laporan</button>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col lg-8 col-8">
+            <div class="form-floating">
+                <textarea class="form-control" placeholder="Leave a comment here" id="laporan-text-area"
+                    style="height: 500px"></textarea>
+                <label for="floatingTextarea2">Laporan</label>
+            </div>
+            
+        </div>
+
+
+
+    </div>

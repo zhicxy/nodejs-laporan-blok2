@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>
+    <%= judul %>
+  </title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+
+<body>
+  <h1>Hello, world!</h1>
+  <form action="/ap2b/values" method="post">
+  
+    <div class="input-group mb-3">
+      <span class="input-group-text" id="basic-addon1">GT21</span>
+      <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" name="prod21"
+        value="<%= prod21 %>">
+    </div>
+    <div class="input-group mb-3">
+      <span class="input-group-text" id="basic-addon1">GT22</span>
+      <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" name="prod22"
+        value="<%= prod22 %>">
+    </div>
+    <div class="input-group mb-3">
+      <span class="input-group-text" id="basic-addon1">ST28</span>
+      <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" name="prod28"
+        value="<%= prod28 %>">
+    </div>
+    <div class="input-group mb-3">
+      <span class="input-group-text" id="basic-addon1">Gas Consumption</span>
+      <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" name="gasConsB2"
+        value="<%= gasConsB2 %>">
+    </div>
+  
+    <button type="button" class="btn btn-primary" id="btn_copy">Copy Laporan</button>
+    <button type="button" class="btn btn-secondary" id="btn_fetch">Update</button>
+    <button type="submit" class="btn btn-danger" id="btn_fetch">Submit</button>
+  
+  </form>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+
+  <script>
+    document.getElementById('btn_fetch').addEventListener(('click'), () => {
+      fetch('/button-click', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ message: 'ini contoh respon dari button yang di click dari browser' })
+      }).then(console.log('berhasil click'));
+    })
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,24 @@
+ <%- include('bootstrap') %>
+  </body>
+
+        <% switch (page) {
+            case 'midnight': 
+        %>
+            <%- include('footer_midnight'); -%>
+        <% break;
+            case 'dispatcher': %>
+            <%- include('footer_dispatcher'); -%>
+        <% break;
+            case 'koordinasi': %>
+            <%- include('footer_koordinasi'); -%>
+        <% break;
+            case 'pnp': %>
+            <%- include('footer_laporan_pnp'); -%>
+        <% break;
+           default:
+            %>
+            
+        <% } %>
+  
+  <%- include('style') %>
+</html>

@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>
+    <%= judul %>
+  </title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+
+<body>
+  <h1>Input Data Pukul 00:00</h1>
+  <form action="/report/000" method="post">
+  <div class="input-group mb-3">
+    <span class="input-group-text" id="basic-addon1">Produksi GT21</span>
+    <input name="prod21" type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" value="<%= prod21 %>">
+  </div>
+  <div class="input-group mb-3">
+    <span class="input-group-text" id="basic-addon1">Produksi GT22</span>
+    <input name="prod22" type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1"
+      value="<%= prod22 %>">
+  </div>
+  <div class="input-group mb-3">
+    <span class="input-group-text" id="basic-addon1">Produksi ST28</span>
+    <input name="prod28" type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" value="<%= prod28 %>">
+  </div>
+  <div class="input-group mb-3">
+    <span class="input-group-text" id="basic-addon1">Total Produksi B2</span>
+    <input name="totProdB2" type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1"
+      value="<%= totProdB2 %>">
+  </div>
+  <div class="input-group mb-3">
+    <span class="input-group-text" id="basic-addon1">Flow Gas B1</span>
+    <input name="mmscfdB1" type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1"
+      value="<%= mmscfdB1 %>">
+  </div>
+  <div class="input-group mb-3">
+    <span class="input-group-text" id="basic-addon1">Flow Gas B2</span>
+    <input name="mmscfdB2" type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1"
+      value="<%= mmscfdB2 %>">
+  </div>
+  <div class="input-group mb-3">
+    <span class="input-group-text" id="basic-addon1">Energy Gas B1</span>
+    <input name="mmbtuB1" type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1"
+      value="<%= mmbtuB1 %>">
+  </div>
+  <div class="input-group mb-3">
+    <span class="input-group-text" id="basic-addon1">Energy Gas B2</span>
+    <input name="mmbtuB2" type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1"
+      value="<%= mmbtuB2 %>">
+  </div>
+
+  <a href="/report/00/values"><button id="btn-update" type="button" class="btn btn-secondary">Update</button></a>
+  <button id="btn-save" type="submit" class="btn btn-primary">Save</button>
+
+  </form>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+
+  <script>
+//    const btnUpdate = document.getElementById('btn-update');
+//    const btnSync = document.getElementById('btn-sync');
+//    const btnSave = document.getElementById('btn-save');
+//    const txtFields = document.getElementsByClassName('form-control');
+//
+//    let isFieldEmpty = true;
+//    for (let element of txtFields) {
+//      if (element.value == '') {
+//
+//        isFieldEmpty = true;
+//      } else {
+//        isFieldEmpty = false;
+//      }
+//    }
+//
+//    btnSync.addEventListener('click', () => {
+//      if (isFieldEmpty) {
+//        alert('Isi data dulu mas bro. Atau coba tekan tombol Update')
+//        event.preventDefault();
+//      } else {
+//
+//        alert('Data saved')
+//        fetch('/button-click', {
+//          method: 'POST',
+//          headers: {
+//            'Content-Type': 'application/json' // Crucial for server to parse req.body as JSON
+//          },
+//          body: JSON.stringify({ name: txtFields[0].value })
+//        })
+//          .then(response => response.json())
+//          .then(data => console.log(data))
+//        //.catch(error => console.error('Error:', error));
+//      }
+//    });
+//
+//
+//    btnSave.addEventListener('click', () => {
+//      console.log('button save fired');
+//
+//      fetch('/button-click', {
+//        method: 'POST',
+//        headers: {
+//          'Content-Type': 'application/json' // Crucial for server to parse req.body as JSON
+//        },
+//        body: JSON.stringify({ name: txtFields[1].value })
+//      })
+//        .then(response => response.json())
+//        .then(data => console.log(data))
+//        .catch(error => console.error('Error:', error));
+//    });
+//
+
+  </script>
+</body>
+
+</html>

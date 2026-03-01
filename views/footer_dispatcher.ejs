@@ -1,0 +1,68 @@
+<script>
+  const btnCopy = document.getElementById('btn-copy-laporan')
+  const dispatcherForms = document.querySelectorAll('input');
+
+  const fieldTotal = dispatcherForms[3];
+  fieldTotal.addEventListener('input', (e) => {
+    const total = 
+      parseFloat(dispatcherForms[0].value) //gt21
+      + parseFloat(dispatcherForms[1].value) //gt22
+      + parseFloat(dispatcherForms[2].value); //st28
+      fieldTotal.value = total.toFixed(2);
+      
+  });
+
+  btnCopy.addEventListener('click', () => {
+    let formValidated = true;
+    dispatcherForms.forEach(element => {
+      const nilai = element.value;
+      if (nilai == '' || !isNumber(nilai)) {
+        formValidated = false;
+        element.classList.add('is-invalid');
+      } else {
+        element.classList.remove('is-invalid');
+      }
+    })
+
+    if (formValidated) {
+      copyLaporan();
+    }
+
+
+
+    console.log(formValidated);
+  });
+
+  function isNumber(params) {
+    return +params
+  }
+  function hariIni() {
+    const date = new Date();
+    const tgl = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`;
+    return tgl;
+  }
+  function copyLaporan() {
+    console.log('berhasil validasi. siap copy laporan')
+    let area = document.getElementById('laporan-text-area')
+    const prod21 = dispatcherForms[0].value;
+    const prod22 = dispatcherForms[1].value;
+    const prod28 = dispatcherForms[2].value;
+    const totProd = dispatcherForms[4].value;
+    const gasCons = dispatcherForms[4].value;
+
+    let laporan = `*Total Produksi Blok 2 Sengkang Pukul 24:00 tgl ${hariIni()}*
+
+GT21 : ${prod21} MWh
+GT22 : ${prod22} MWh
+ST28 : ${prod28} MWh
+      
+Pemakaian Gas GT22 : ${gasCons} M3`
+
+    area.innerHTML = laporan;
+    area.select();
+    area.setSelectionRange(0, 99999);
+    document.execCommand('copy');
+    alert('Berhasil Copy Laporan')
+  }
+
+</script>

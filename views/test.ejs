@@ -1,0 +1,24 @@
+  <script>
+  function modalHandler(title, body, actionSatu, actionDua) {
+    const modalElement = document.getElementById('exampleModal')
+    const modal = new bootstrap.Modal(modalElement);
+    const modalTitle = document.querySelector('.modal-title')
+    const modalBody = document.querySelector('.modal-body')
+    const btnModalAction1 = document.getElementById('btn-modal-action-1')
+    const btnModalAction2 = document.getElementById('btn-modal-action-2')
+
+    modalTitle.innerHTML = title
+    modalBody.innerHTML = body
+    btnModalAction1.innerHTML = actionSatu
+    btnModalAction2.innerHTML = actionDua
+    if (btnModalAction2.innerHTML == 'undefined') {
+      btnModalAction2.style.display = 'none'
+      btnModalAction1.classList.add('btn-primary')
+      btnModalAction1.classList.remove('btn-secondary')
+    }
+    if (btnModalAction1.innerHTML == 'Action1') {
+      btnModalAction1.style.display = 'none'
+    }
+    modal.show()
+  }
+  </script>

@@ -1,0 +1,122 @@
+    <div class="row me-3 mt-3">
+
+        <div class="col-12 col-md-6 col-lg-4">
+
+
+            <div class="alert alert-danger alert-dismissible fade show" role="alert" style="display: none;">
+                <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+
+            
+
+            <form action="/midnight/cobaPost?date=02/12/2025" method="post" class="needs-validation" >
+            
+            
+                <!--card Produksi Harian-->
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Produksi Harian</h5>
+                        <p class="card-text">Selisih hasil pembacaan kwh meter pukul 00:00 hari ini dan kemarin.</p>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">GT21</span>
+                            <input type="text" class="form-control " aria-label="Amount (to the nearest dollar)"
+                                name="prod21" value="<%= prod21 %>" required>
+                            <span class="input-group-text">MWh</span>
+                                
+
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">GT22</span>
+                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)"
+                                 name="prod22"value="<%= prod22 %>" required>
+                            <span class="input-group-text">MWh</span>
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">ST28</span>
+                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)"
+                                 name="prod28"value="<%= prod28 %>" required>
+                            <span class="input-group-text">MWh</span>
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">Total Blok 2</span>
+                            <input type="text" id="totProd" class="form-control" aria-label="Amount (to the nearest dollar)"
+                                 name="totalProduksi" value="<%= totalProduksi %>" required>
+                            <span class="input-group-text">MWh</span>
+                        </div>
+            
+                    </div>
+                </div>
+            
+            
+                <!--card Data Gas-->
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Data Gas</h5>
+                        <p class="card-text">Data hasil laporan dari penyededia gas (PMS)</p>
+                        <h6 class="card-title mt-4 ms-2 text-primary">GT21 + Blok 1</h6>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" style="width: 6rem;">Flow Gas</span>
+                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)"
+                                 name="flowGasB1" value="<%= flowGasB1 %>" required>
+                            <span class="input-group-text">mmscfd</span>
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" style="width: 6rem;">Energi</span>
+                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)"
+                                name="energiB1" value="<%= energiB1 %>" required>
+                            <span class="input-group-text">mmbtu</span>
+                        </div>
+                        <h6 class="card-title mt-4 ms-2 text-primary">GT22</h6>
+                        <div class="input-group mb-3">
+                            
+                            <span class="input-group-text" style="width: 6rem;">Flow Gas</span>
+                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)"
+                                 name="flowGasB2" value="<%= flowGasB2 %>" required>
+                            <span class="input-group-text">mmscfd</span>
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" style="width: 6rem;">Energi</span>
+                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)"
+                                name="energiB2" value="<%= energiB2 %>" required>
+                            <span class="input-group-text">mmbtu</span>
+                        </div>
+            
+                    </div>
+                </div>
+                <div class="d-grid gap-2 mt-3 mb-5 d-md-flex justify-content-md-end">
+                   <button class="btn btn-primary" type="button" id="btn-another-submit-midnight">Another Submit</button>
+                   <button class="btn btn-danger d-none" type="button" id="btn-update">Update</button>
+                    <!--
+                    <a class="btn btn-secondary" href="/midnight/values">Value</a>
+                    -->
+
+                </div>
+            </form>
+        </div>
+
+
+        <div class="col-12 col-md-6 col-lg-6">
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1468779036391-52341f60b55d?q=80&w=1368&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    class="card-img-top" alt="..." style="height: 15rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Summary</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                        card’s
+                        content.</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Total Produksi: <span class="fw-bold" id="summary-total"><%= gwhProduksi %></span> GWh</li>
+                    <li class="list-group-item">Rata-rata Beban: <span class="fw-bold" id="rata-rata">0</span>MW</li>
+                    <li class="list-group-item">Pemakaian Sendiri: <span class="fw-bold">0</span> MWh</li>
+                </ul>
+
+            </div>
+            
+
+        </div>
+
+
+
+    </div>

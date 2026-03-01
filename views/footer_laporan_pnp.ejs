@@ -1,0 +1,86 @@
+<script>
+  const btnAmbilData = document.getElementById('btn-ambil-data')
+  const forms = document.querySelector('form')
+  const energiB1 = forms[13]
+  const energiB2 = forms[14]
+  const prod21 = forms[18]
+  const prod22 = forms[19]
+  const prod28 = forms[20]
+  const totalKwhB1 = document.getElementById('total-kwh-b1')
+  const totalKwhB2 = document.getElementById('total-kwh-b2')
+  const totalKwh = document.getElementById('total-kwh')
+  btnAmbilData.addEventListener('click', ambilDataHandler) 
+  
+  for (let index = 0; index < forms.length; index++) {
+    const element = forms[index];
+    if (index > 14) {
+      element.addEventListener('keyup', () => {
+        totalKwhB1.innerHTML =  new Intl.NumberFormat('en-US').format(sumB1()) 
+        totalKwhB2.innerHTML = new Intl.NumberFormat('en-US').format(sumB2()) 
+        totalKwh.innerHTML = new Intl.NumberFormat('en-US').format(totKWH()) 
+    //return new Intl.NumberFormat('de-DE').format(totalb1) 
+      })
+    }
+  }
+
+  const url = '/pnp/ambildata'
+  const option = {
+    method : 'get',
+    headers: { 'content-type': 'application/json' },
+  }
+//ambilDataHandler()
+  async function ambilDataHandler(params) {
+    try {
+      const response = await fetch(url, option)
+      const data = await response.json()
+      console.log(data);
+
+      const keys = ['beban21', 'beban22','beban28','totalBeban', 'energiB1', 'energiB2', 'prod21', 'prod22', 'prod28']
+      keyIndex = 0
+
+      for (let index = 0; index < forms.length; index++) {
+        const element = forms[index];
+        const idx = 7
+
+        if (index >= idx) {
+          if (index != 11 && index != 12 && index != 15 && index != 16 && index != 17) {
+            let key = keys[keyIndex]
+            element.value = data[keys[keyIndex]]
+            keyIndex += 1
+          }
+        }
+      }
+        totalKwhB1.innerHTML =  new Intl.NumberFormat('en-US').format(sumB1()) 
+        totalKwhB2.innerHTML = new Intl.NumberFormat('en-US').format(sumB2()) 
+        totalKwh.innerHTML = new Intl.NumberFormat('en-US').format(totKWH()) 
+      forms[11].focus()
+
+    } catch (err) {
+      console.log(err);
+      alert('Maaf. Data tidak ditemukan')
+      forms[7].focus()
+    }
+  }
+
+  function sumB1() {
+    const kwh11 =Number(forms[15].value)
+  const kwh12 = Number(forms[16].value)
+    const kwh18 = Number(forms[17].value)
+    let totalb1 = kwh11 + +kwh12 + kwh18
+    totalb1  = totalb1
+    return totalb1
+    //return new Intl.NumberFormat('de-DE').format(totalb1) 
+  }
+  function sumB2() {
+    const kwh21 = Number(forms[18].value)
+    const kwh22 = Number(forms[19].value)
+    const kwh28 = Number(forms[20].value)
+    let totalb2 = kwh21  + kwh22 + kwh28
+    return totalb2
+    //totalb2 = new Intl.NumberFormat('de-DE').format(totalb2) 
+  }
+  function totKWH() {
+    let totKWH = Number(sumB1()) + sumB2()
+    return totKWH 
+  }
+</script>

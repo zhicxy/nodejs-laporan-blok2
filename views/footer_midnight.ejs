@@ -1,0 +1,130 @@
+<script>
+  const btnSubmit = document.getElementById('btn-another-submit-midnight');
+  const btnUpdate = document.getElementById('btn-update');
+  const formMidnight = document.querySelector('form');
+  const inputFields = document.querySelectorAll('input');
+  const elementGwh = document.getElementById('summary-total');
+  const elementAvg = document.getElementById('rata-rata');
+
+  btnSubmit.addEventListener('click', btnSubmitHandler);
+
+  inputFields.forEach(element => {
+    element.addEventListener('change', event => {
+      markValid(element);
+      if (element.id == 'totProd') {
+        const gt21 = +inputFields[0].value
+        const gt22 = +inputFields[1].value
+        const st28 = +inputFields[2].value
+        const totalProduksi = gt21 + gt22 + st28
+        element.value = totalProduksi
+        element.classList.add('is-valid')
+        element.classList.remove('is-invalid')
+      }
+    })
+  });
+
+  function validate(text) {
+    const validasiSatu = Number(text)
+    const validasiDua = text.trim().length
+    if (validasiSatu && validasiDua != 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  function getDataFormMidnight() {
+    const dataMidnight = new FormData(formMidnight);
+    const data = {}
+    for (const [key, value] of dataMidnight) {
+      data[key] = value;
+    }
+    return data;
+  }
+
+  async function btnSubmitHandler(event) {
+    // [x] validasi form
+    // [x] cek jika empty
+    // [x] cek jika number
+    //post menggunakan fetch
+    let formStatus = true;
+    for (let index = 0; index < inputFields.length; index++) {
+      const element = inputFields[index];
+      markValid(element);
+      if (element.classList.contains('is-invalid')) {
+        formStatus = formStatus && false;
+      }
+    }
+    const today = hariIni();
+    if (formStatus) {
+      const submitUrl = `/midnight/submit?date=${today}`;
+      try {
+        const response = await fetch(submitUrl, getHttpOptions())
+        const data = await response.json();
+        if (data.modalHeader != "Data Conflict") {
+          modalHandler(data.modalHeader, data.modalBody, 'OK');
+        } else {
+          updateHandler(data);
+        }
+      } catch (err) {
+        console.error(err.message);
+        modalHandler('Server Error!', 'Terjadi kesalahan saat mengirim data.', 'Ok')
+      }
+    } else {
+      modalHandler('Waddduhh...!', 'Terdapat kesalahan input data. Perbaiki! ', 'Ok')
+    }
+  }
+  async function updateHandler(serverResponse) {
+    modalHandler(serverResponse.modalHeader, serverResponse.modalBody, 'Ok');
+    btnUpdate.classList.remove('d-none');
+    btnUpdate.addEventListener('click', event => {
+      fetch('/midnight/update', getHttpOptions())
+        .then(dataUpdate => dataUpdate.json())
+        .then(jsonModal => modalHandler(jsonModal.modalHeader, jsonModal.modalBody, 'OK'))
+        .catch(err => { console.error(err); })
+    })
+  }
+
+  function getHttpOptions() {
+    const options = {
+      method: 'post',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(getDataFormMidnight())
+    };
+    return options
+  }
+  function markValid(htmlElement) {
+    if (validate(htmlElement.value)) {
+      htmlElement.classList.add('is-valid')
+      htmlElement.classList.remove('is-invalid')
+    } else {
+      htmlElement.classList.add('is-invalid')
+      htmlElement.classList.remove('is-valid')
+    }
+  }
+  function hariIni() {
+    const date = new Date();
+    const tgl = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
+    return tgl;
+  }
+
+  for (let index = 0; index < inputFields.length; index++) {
+    const element = inputFields[index];
+    if (index < 3) {
+      element.addEventListener('change', () => {
+        elementGwh.innerHTML = totalGwh().toFixed(3);
+        const avg = totalGwh() / 24 * 1000
+        elementAvg.innerHTML = avg.toFixed(2);
+      })
+    }
+
+  }
+  function totalGwh() {
+    const gt21 = +inputFields[0].value
+    const gt22 = +inputFields[1].value
+    const st28 = +inputFields[2].value
+    const totalProduksi = gt21 + gt22 + st28
+    return totalProduksi / 1000;
+  }
+</script>
+<%- include('test')  %>

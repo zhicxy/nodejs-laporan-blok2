@@ -1,0 +1,19 @@
+{
+  "name": "integrasi-js-excel",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "exceljs": "^4.4.0",
+    "express": "^5.1.0",
+    "indonesia-cities-regencies": "^2.0.0",
+    "mongodb": "^7.0.0"
+  }
+}

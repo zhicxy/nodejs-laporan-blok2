@@ -1,0 +1,195 @@
+<script>
+  const jam = document.getElementById('select-jam')
+  const agc21 = document.getElementById('agc21');
+  const agc22 = document.getElementById('agc22');
+  const lbl21 = document.getElementById('label-agc-21');
+  const lbl22 = document.getElementById('label-agc-22');
+  const forms = document.querySelectorAll('input');
+  let isValid = true;
+
+  const option = {
+    method: 'post',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify(forms)
+  };
+  let agc21status = false;
+
+  let jamDipilih = "";
+  jam.addEventListener('change', (evt) => {
+    jamDipilih = evt.target.value;
+    
+    //hide button field total produksi
+    if (jamDipilih == '06:00') {
+      formKoordinasi[7].parentElement.classList.remove('d-none')
+     } else {
+      formKoordinasi[7].parentElement.classList.add('d-none')
+     }
+    //hide button koordinasi gas
+    if (jamDipilih == '18:00' || jamDipilih == '06:00') {
+      btnGas.classList.remove('d-none');
+      formKoordinasi[14].parentElement.classList.remove('d-none')
+     } else {
+      btnGas.classList.add('d-none')
+      formKoordinasi[14].parentElement.classList.add('d-none')
+     }
+
+
+  })
+   const formKoordinasi = document.querySelector('form');
+  //  console.log(formKoordinasi);
+   
+  formKoordinasi.addEventListener('submit', formHandler)
+  
+
+
+  const areaLaporan = document.querySelector('textarea');
+
+  function getFormData() {
+    const formData = new FormData(formKoordinasi);
+    const keys = ['jam', 'beban21', 'beban22', 'beban28', 'totalBeban', 'vacuum', 'ps', 'totalProduksi', 'agc21', 'agc22', 'pNG21', 'pNG22', 'fNG21', 'fNG22', 'psi', 'areaLaporan'];
+    
+    for (let index = 0; index < formKoordinasi.length; index++) {
+      formData[keys[index]] = formKoordinasi[index].value;
+      console.log(keys[index]);
+      console.log(formKoordinasi[index].value);
+      
+    }
+    return formData
+  }
+  function formHandler(evt) {
+    evt.preventDefault();
+    const option = {
+      method: formKoordinasi.method,
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(getFormData())
+    }
+    whatsapp(formKoordinasi.action, option);
+    modalHandler('Copy Berhasil', 'Silahkan paste laporan di group whatsapp <strong>Koordinasi PLTGU Sengkang!</strong>', 'OK')
+  }
+
+  const btnGas = document.getElementById('btn-gas');
+  btnGas.addEventListener('click', gasHandler1)
+  async function gasHandler(params) {
+    const url = '/koordinasi/gas'
+    const option = {
+      method : 'get'
+    }
+    try {
+      const response = await fetch(url, option);
+      const data = await response.json();
+      console.log(data);
+    } catch (err) {
+      console.error(err);
+      
+    }
+  }
+
+  async function gasHandler1() {
+      const url = '/koordinasi/gas'
+      const option = {
+        method: formKoordinasi.method,
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(getFormData())
+      }
+      try {
+        const response = await fetch(url, option)
+        const data = await response.json()
+        areaLaporan.innerHTML = data;
+        areaLaporan.select();
+        document.execCommand('copy');
+        modalHandler('Copy Berhasil', 'Silahkan paste laporan di group whatsapp <strong>Koordinasi Gas!</strong>', 'OK')
+      } catch (err) {
+        console.error(err);
+      }
+  }
+  async function whatsapp(url, option) {
+    try {
+      const response = await fetch(url, option);
+      const data = await response.json()
+      areaLaporan.innerHTML = data;
+      areaLaporan.select();
+      document.execCommand('copy');
+    } catch (error) {
+      console.error(error)
+    }
+  }
+  agc21.addEventListener('change', (evt) => {
+    if (evt.target.checked) {
+      lbl21.innerHTML = 'AGC GT21 ON'
+      evt.target.value = 'on'
+    } else {
+      lbl21.innerHTML = 'AGC GT21 OFF'
+      evt.target.value = 'off'
+    }
+  })
+  agc22.addEventListener('change', (evt) => {
+    if (evt.target.checked) {
+      lbl22.innerHTML = 'AGC GT22 ON'
+      evt.target.value = 'on'
+    } else {
+      lbl22.innerHTML = 'AGC GT22 OFF'
+      evt.target.value = 'off'
+    }
+  })
+  function isNumber(params) {
+    return +params
+  }
+  function modalHandler(title, body, actionSatu, actionDua) {
+    const modalElement = document.getElementById('exampleModal')
+    const modal = new bootstrap.Modal(modalElement);
+    const modalTitle = document.querySelector('.modal-title')
+    const modalBody = document.querySelector('.modal-body')
+    const btnModalAction1 = document.getElementById('btn-modal-action-1')
+    const btnModalAction2 = document.getElementById('btn-modal-action-2')
+
+    modalTitle.innerHTML = title
+    modalBody.innerHTML = body
+    btnModalAction1.innerHTML = actionSatu
+    btnModalAction2.innerHTML = actionDua
+    if (btnModalAction2.innerHTML == 'undefined') {
+      btnModalAction2.style.display = 'none'
+      btnModalAction1.classList.add('btn-primary')
+      btnModalAction1.classList.remove('btn-secondary')
+    }
+    if (btnModalAction1.innerHTML == 'Action1') {
+      btnModalAction1.style.display = 'none'
+    }
+    modal.show()
+  }
+  /*
+  function validateForm() {
+    isValid=true;
+    forms.forEach(element => {
+      const iniCekbox = element.type == 'checkbox';
+      const iniText = isNaN(element.value);
+      const iniKosong = element.value == '';
+
+      if (!iniCekbox) {
+        if (iniText || iniKosong) {
+          console.log('kriteria true')
+          element.classList.add('is-invalid');
+          isValid = false;
+        } else {
+          element.classList.remove('is-invalid');
+        }
+      }
+    });
+  }
+
+  const btnSimulasiNilai = document.getElementById('btn-wa')
+  btnSimulasiNilai.addEventListener('click', () => {
+    const contohNilai = [21, 22, 28, 180, 0.080, 2.9, 14.00, 27.9, 28.00, 31, 15, 400];
+    let counter = 0
+    forms.forEach(element => {
+      if (element.className == 'form-control') {
+        element.value = contohNilai[counter]
+        counter += 1;
+      }
+    });
+  })
+*/
+
+</script>
+
+
+
